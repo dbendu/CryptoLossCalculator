@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Активы</title>
+
+  <link rel="stylesheet" href="rates.css">
+</head>
+<body>
+
+  <h1>Активы</h1>
+
+  <button id="logout-btn" class="logout-button">Выйти</button>
+
+  <div id="loader">Загрузка...</div>
+  <div id="app" style="display: none;">
+
+    <div class="summary" id="total-summary" style="display: none;">
+      0.00 <sup>0.0%</sup>
+    </div>
+
+    <div class="currency-list" id="currency-list"></div>
+
+    <div id="add-purchase-section">
+      <button id="toggle-add-form">Добавить покупку</button>
+      <button id="close-add-form" style="display: none;">✖</button>
+    
+      <form id="add-purchase-form" style="display: none;">
+        <input type="text" id="input-token" placeholder="Название токена" required />
+        <input type="number" id="input-amount" placeholder="Количество" required step="any" />
+        <input type="number" id="input-price" placeholder="Цена" required step="any" />
+        <button type="submit" id="save-purchase-button" disabled>Сохранить</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script type="module" src="rates.js"></script>
+
+</body>
+</html>

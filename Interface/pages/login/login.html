@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход</title>
+
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-box">
+    <label for="username">Имя пользователя</label>
+    <input type="text" id="username">
+
+    <label for="key">
+      Ключ для шифрования
+      <span class="tooltip" data-tooltip="Ключ не передаётся на сервер и используется для того, чтобы расшифровать на клиенте информацию о твоих покупках">❓</span>
+    </label>
+    <input type="text" id="key">
+
+    <div class="checkbox-container">
+      <label class="custom-checkbox">
+        <input type="checkbox" id="remember">
+        <span class="checkmark"></span>
+        Запомнить ключ
+      </label>
+    </div>
+
+    <button id="login-button" disabled>Войти</button>
+  </div>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>
