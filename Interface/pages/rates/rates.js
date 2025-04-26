@@ -105,7 +105,6 @@ function renderCurrenciesTable(userdata, actualRates) {
         }
   
         const currentCost = totalAmount * currentPrice;
-        console.log(totalAmount, currentPrice, currentCost);
         const diff = currentCost - totalCost;
         const percent = (diff / totalCost) * 100;
     

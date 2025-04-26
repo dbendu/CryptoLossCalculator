@@ -2,5 +2,5 @@
 
 public class UserDataSettings
 {
-    public string Folder { get; set; }
+    public string Folder { get; set; } = null!;
 }
