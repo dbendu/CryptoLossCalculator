@@ -1,10 +1,16 @@
+using CryptoLossCalculator.Api.Middlewares;
 using CryptoLossCalculator.Api.Settings;
-using Microsoft.AspNetCore.HttpLogging;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Host.UseSerilog();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -17,19 +23,14 @@ builder.Services.AddCors(
 
 builder.Services.AddControllers();
 
-builder.Services.AddHttpLogging(logging =>
-{
-    logging.LoggingFields = HttpLoggingFields.RequestPath | HttpLoggingFields.ResponseStatusCode | HttpLoggingFields.Duration;
-    logging.CombineLogs = true;
-});
-
 builder.Services.Configure<UserDataSettings>(
     builder.Configuration.GetSection(nameof(UserDataSettings))
 );
 
 var app = builder.Build();
 
-app.UseHttpLogging();
+app.UseMiddleware<RequestLoggingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();

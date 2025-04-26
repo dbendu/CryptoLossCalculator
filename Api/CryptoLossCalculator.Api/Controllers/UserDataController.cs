@@ -1,4 +1,5 @@
-﻿using CryptoLossCalculator.Api.Settings;
+﻿using System.Text;
+using CryptoLossCalculator.Api.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -48,12 +49,12 @@ public class UserDataController : ControllerBase
     {
         var userFilePath = Path.Combine(_usersSettings.Folder, request.Username);
 
-        if (!System.IO.File.Exists(userFilePath))
-        {
-            await using var stream = System.IO.File.Create(userFilePath);
-        }
+        var content = Encoding.UTF8.GetBytes(request.Data);
 
-        await System.IO.File.WriteAllTextAsync(userFilePath, request.Data, token);
+        await using (var stream = System.IO.File.Open(userFilePath, FileMode.Create, FileAccess.Write))
+        {
+            await stream.WriteAsync(content, token);
+        }
 
         return Ok();
     }
